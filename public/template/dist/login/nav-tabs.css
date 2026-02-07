@@ -1,0 +1,32 @@
+.nav-tabs{
+    margin-bottom: 10px; 
+    border: none;  
+}
+
+.nav-tabs .nav-link{
+    border-radius: 20px !important;
+    padding-right: 14px;
+    border: 1px solid #d9e4f4;;
+    background-color: #eff6ff;
+    margin: 0px 3px;
+    color: #001F3F;
+}
+
+.nav-tabs .nav-link.active{
+    background-color: #d9e4f4;
+    color: #001F3F;
+    font-weight: 600;
+}
+
+.nav-tabs .nav-link:hover{
+    background-color: #d9e4f4;
+    color: #001F3F;
+    /* font-weight: 600; */
+}
+
+.nav-tabs .nav-count{
+    border-radius: 20px !important;
+    margin-left: 4px;
+    min-width: 20px;
+    color: #fff;
+}
