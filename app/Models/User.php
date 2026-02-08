@@ -20,6 +20,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'no_telepon',
+        'posisi',
+        'foto',
     ];
 
     /**
@@ -44,4 +47,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function pengumuman()
+{
+    return $this->belongsToMany(Pengumuman::class, 'pengumuman_user')
+                ->withPivot('is_read')
+                ->withTimestamps();
+}
+
 }
