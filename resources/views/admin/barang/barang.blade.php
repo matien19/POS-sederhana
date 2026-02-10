@@ -10,9 +10,9 @@
     </div>
     <div class="card-body">
         <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-tambah"><i class="fas fa-plus"></i> Tambah Data</button>
-        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-import"><i class="fas fa-file-excel"></i>
+        {{-- <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#modal-import"><i class="fas fa-file-excel"></i>
                 Import Data
-              </button>
+              </button> --}}
         <table id="example1" class="table table-bordered table-striped">
                   <thead>
                   <tr>

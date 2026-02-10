@@ -16,7 +16,6 @@ class KTTransaksiModel extends Model
 
     protected $fillable = [
         'no_transaksi',
-        'id_users',
         'id_supplier',
         'jenis_transaksi',
         'tanggal',

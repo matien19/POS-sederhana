@@ -2,7 +2,6 @@
     <!-- Brand -->
     <a href="#" class="brand-link text-center">
         <span class="brand-text font-weight-bold">
-            <i class="fas fa-user-circle mr-2"></i>
             Inventory
         </span>
     </a>
