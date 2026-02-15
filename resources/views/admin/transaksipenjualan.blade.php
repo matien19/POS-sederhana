@@ -16,6 +16,7 @@
                         <th>No</th>
                         <th>Tanggal</th>
                         <th>Nota</th>
+                        <th>Kustomer</th>
                         <th>Total</th>
                         <th>Dibayar</th>
                         <th>Hutang</th>
@@ -30,6 +31,7 @@
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $item->tanggal }}</td>
                         <td>{{ $item->no_transaksi }}</td>
+                        <td>{{ $item->customer ?? '-' }}</td>
                         <td>
                             Rp {{ number_format($item->total_bayar,0,',','.') }}
                         </td>

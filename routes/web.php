@@ -100,7 +100,7 @@ Route::get('/laporan/penjualan/pdf', [LaporanPenjualanController::class, 'export
 Route::get('/laporan/penjualan/excel', [LaporanPenjualanController::class, 'exportExcel'])->name('laporan.penjualan.excel');
 
 //retur
-Route::get('/retur', [barangController::class, 'index'])->name('barang');
+Route::get('/retur', [barangController::class, 'index'])->name('retur');
 
 
 
