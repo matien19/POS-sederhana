@@ -22,7 +22,7 @@
 
                 {{-- ================= KATEGORI TRANSAKSI ================= --}}
                 @php
-                    $transaksiActive = request()->routeIs('pembelian*') || request()->routeIs('penjualan*');
+                $transaksiActive = request()->routeIs('pembelian*') || request()->routeIs('penjualan*');
                 @endphp
 
                 <li class="nav-item has-treeview {{ $transaksiActive ? 'menu-open' : '' }}">
@@ -50,10 +50,16 @@
                                 <p>Pembelian</p>
                             </a>
                         </li>
-
+                        <li class="nav-item">
+                            <a href="{{ route('penjualan.tambah') }}"
+                                class="nav-link {{ request()->routeIs('penjualan.tambah') ? 'active' : '' }}"><i
+                                    class="nav-icon fas fa-shopping-cart"></i>
+                                <p>Transaksi Penjualan</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="{{ route('penjualan.index') }}"
-                                class="nav-link {{ request()->routeIs('penjualan*') ? 'active' : '' }}">
+                                class="nav-link {{ request()->routeIs('penjualan.index') ? 'active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Penjualan</p>
                             </a>
@@ -63,11 +69,11 @@
 
                 {{-- ================= DATA MASTER ================= --}}
                 @php
-                    $dataMasterActive =
-                        request()->routeIs('barang*') ||
-                        request()->routeIs('kategori*') ||
-                        request()->routeIs('merek*') ||
-                        request()->routeIs('supplier*');
+                $dataMasterActive =
+                request()->routeIs('barang*') ||
+                request()->routeIs('kategori*') ||
+                request()->routeIs('merek*') ||
+                request()->routeIs('supplier*');
 
                 @endphp
 
@@ -117,10 +123,10 @@
 
                 {{-- ================= MANAJEMEN STOK ================= --}}
                 @php
-                    $stokActive =
-                        request()->routeIs('stok.barang*') ||
-                        request()->routeIs('stok.masuk*') ||
-                        request()->routeIs('stok.keluar*');
+                $stokActive =
+                request()->routeIs('stok.barang*') ||
+                request()->routeIs('stok.masuk*') ||
+                request()->routeIs('stok.keluar*');
                 @endphp
 
                 <li class="nav-item has-treeview {{ $stokActive ? 'menu-open' : '' }}">
@@ -164,8 +170,8 @@
 
                 {{-- ================= LAPORAN ================= --}}
                 @php
-                    $laporanActive =
-                        request()->routeIs('laporan.pembelian*') || request()->routeIs('laporan.penjualan*');
+                $laporanActive =
+                request()->routeIs('laporan.pembelian*') || request()->routeIs('laporan.penjualan*');
                 @endphp
 
                 <li class="nav-item has-treeview {{ $laporanActive ? 'menu-open' : '' }}">
@@ -198,10 +204,10 @@
 
                 {{-- ================= MANAJEMEN USER ================= --}}
                 {{-- @php
-                    $userActive =
-                        request()->routeIs('user.admin*') ||
-                        request()->routeIs('user.gudang*') ||
-                        request()->routeIs('user.kasir*');
+                $userActive =
+                request()->routeIs('user.admin*') ||
+                request()->routeIs('user.gudang*') ||
+                request()->routeIs('user.kasir*');
                 @endphp
 
                 <li class="nav-item has-treeview {{ $userActive ? 'menu-open' : '' }}">
@@ -248,7 +254,7 @@
                     </a>
                 </li> --}}
 
-                {{-- 
+                {{--
                 <li class="nav-item">
                     <a href="{{ route('kasir.dashboard') }}"
                         class="nav-link {{ request()->routeIs('kasir.dashboard') ? 'active' : '' }}">
@@ -281,8 +287,8 @@
                 </li> --}}
 
                 {{-- ======================================================
-|                       GUDANG
-====================================================== --}}
+                | GUDANG
+                ====================================================== --}}
 
                 {{-- <li class="nav-item">
                     <a href="{{ route('gudang.dashboard') }}"

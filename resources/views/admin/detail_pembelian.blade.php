@@ -7,32 +7,63 @@
     <div class="card mb-3">
         <div class="card-header">
             <h3 class="card-title">
-            <i class="fas fa-file-invoice"></i> Detail Transaksi Pembelian
-        </h3>
+                <i class="fas fa-file-invoice"></i> Detail Transaksi Pembelian
+            </h3>
             <a href="{{ route('pembelian') }}" class="btn btn-secondary btn-sm float-right">
                 <i class="fas fa-arrow-left"></i> Kembali
             </a>
         </div>
 
+
         <div class="card-body">
-            <table class="table table-borderless">
-                <tr>
-                    <th width="200">Nama Supplier</th>
-                    <td>: {{ $transaksi->supplier->nama ?? '-' }}</td>
-                </tr>
-                <tr>
-                    <th>Tanggal</th>
-                    <td>: {{ $transaksi->tanggal }}</td>
-                </tr>
-                <tr>
-                    <th>No Pembelian</th>
-                    <td>: {{ $transaksi->no_transaksi }}</td>
-                </tr>
-                <tr>
-                    <th>Total Pembayaran</th>
-                    <td>: <strong>Rp {{ number_format($transaksi->total_bayar) }}</strong></td>
-                </tr>
-            </table>
+            <div class="row">
+                <div class="col-lg-6">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th width="200">Nama Supplier</th>
+                            <td>: {{ $transaksi->supplier->nama ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Tanggal</th>
+                            <td>: {{ $transaksi->tanggal }}</td>
+                        </tr>
+                        <tr>
+                            <th>No Pembelian</th>
+                            <td>: {{ $transaksi->no_transaksi }}</td>
+                        </tr>
+                        <tr>
+                            <th>Status Pembayaran</th>
+                            <td>:
+                                @if ($transaksi->status_pembayaran == 'BELUM_LUNAS')
+                                    <span class="badge badge-danger">Hutang</span>
+                                @else
+                                    <span class="badge badge-success">Lunas</span>
+                                @endif
+
+                                -  Dibayar tanggal : {{ $pembayaran->tanggal_bayar ?? '-'}}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-lg-6">
+                    <table class="table table-borderless">
+                        <tr>
+                            <th width="200">Total</th>
+                            <td>: Rp {{ number_format($total) ?? '-' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Diskon</th>
+                            <td>: Rp {{ number_format($transaksi->diskon) ?? '-' }}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Total Pembayaran</th>
+                            <td>: <strong>Rp {{ number_format($transaksi->total_bayar) }}</strong></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
         </div>
     </div>
 

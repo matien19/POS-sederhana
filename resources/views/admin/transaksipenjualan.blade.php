@@ -10,13 +10,12 @@
         </div>
 
         <div class="card-body">
-            <table class="table table-bordered table-striped">
+            <table id="example1" class="table table-bordered table-striped">
                 <thead class="bg-light">
                     <tr>
                         <th>No</th>
                         <th>Tanggal</th>
                         <th>Nota</th>
-                        <th>Kasir</th>
                         <th>Pembayaran</th>
                         <th>Total</th>
                         <th><center>Aksi</center></th>
@@ -28,25 +27,24 @@
                             <td>{{ $loop->iteration }}</td>
                             <td>{{ $item->tanggal }}</td>
                             <td>{{ $item->no_transaksi }}</td>
-                            <td>{{ optional($item->kasir)->name ?? '-' }}</td>
                             <td>{{ ucfirst($item->metode_bayar ?? '-') }}</td>
                             <td>
                                 Rp {{ number_format($item->total_bayar,0,',','.') }}
                             </td>
                             <td class="text-center">
-                                <a href="{{ route('admin.penjualan.show',$item->id) }}"
+                                <a href="{{ route('penjualan.show',$item->id) }}"
                                    class="btn btn-info btn-sm">
                                     <i class="fas fa-info-circle"></i> Detail
                                 </a>
-
-                                <a href="{{ route('admin.penjualan.edit',$item->id) }}"
+{{-- 
+                                <a href="{{ route('penjualan.edit',$item->id) }}"
                                    class="btn btn-success btn-sm">
                                     <i class="fas fa-edit"></i> Edit
-                                </a>
+                                </a> --}}
 
                                 <button type="button"
                                     class="btn btn-danger btn-sm btn-hapus"
-                                    data-url="{{ url('admin/penjualan/destroy/'.$item->id) }}">
+                                    data-url="{{ url('penjualan/destroy/'.$item->id) }}">
                                     <i class="fas fa-trash"></i> Hapus
                                 </button>
                             </td>

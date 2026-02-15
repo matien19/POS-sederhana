@@ -13,78 +13,91 @@ use App\Http\Controllers\Admin\StokKeluarController;
 use App\Http\Controllers\Admin\LaporanPembelianController;
 use App\Http\Controllers\Admin\LaporanPenjualanController;
 use App\Http\Controllers\Gudang\GudangPembelianController;
-
+use App\Http\Controllers\Kasir\KasirPenjualanController;
 
 use Illuminate\Support\Facades\Route;
 
-    Route::get('/', [AdminDashController::class, 'index'])->name('dashboard');
-
-    
-    //transaksi pembelian
+Route::get('/', [AdminDashController::class, 'index'])->name('dashboard');
 
 
-    Route::get('/pembelian', [TransaksiPembelianController::class, 'index'])
+//transaksi pembelian
+Route::get('/pembelian', [TransaksiPembelianController::class, 'index'])
     ->name('pembelian');
 
-    Route::get('/pembelian/tambah', [GudangPembelianController::class, 'index'])->name('pembelian.tambah');
-    Route::post('/pembelian/tambah', [GudangPembelianController::class, 'store'])->name('pembelian.store');
+Route::get('/pembelian/tambah', [GudangPembelianController::class, 'index'])->name('pembelian.tambah');
+Route::post('/pembelian/tambah', [GudangPembelianController::class, 'store'])->name('pembelian.store');
 
-    Route::post('/pembelian/update{id}', [TransaksiPembelianController::class, 'update'])
-    ->name('detail_pembelian.update');
-    Route::get('/pembelian/show{id}', [TransaksiPembelianController::class, 'show'])
-    ->name('detail_pembelian.show');
-    Route::get('/pembelian/destroy/{id}', [TransaksiPembelianController::class,'destroy'])->name('pembelian.destroy');
-    
-    Route::resource('/penjualan', TransaksiPenjualanController::class);
-    Route::get('/penjualan', [TransaksiPenjualanController::class, 'index'])
-        ->name('penjualan.index');
-    Route::post('/penjualan/add', [TransaksiPenjualanController::class, 'store'])
-        ->name('penjualan.add');
-    Route::get('/penjualan/destroy/{id}', [TransaksiPenjualanController::class, 'destroy'])
-        ->name('penjualan.destroy');
-    Route::get('/penjualan/{id}', [TransaksiPenjualanController::class, 'show'])
+Route::post('/pembelian/update{id}', [TransaksiPembelianController::class, 'update'])->name('detail_pembelian.update');
+Route::get('/pembelian/show{id}', [TransaksiPembelianController::class, 'show'])->name('detail_pembelian.show');
+Route::get('/pembelian/destroy/{id}', [TransaksiPembelianController::class, 'destroy'])->name('pembelian.destroy');
+Route::get('/pembelian/lunaskan/{id}', [TransaksiPembelianController::class, 'lunaskan'])->name('pembelian.lunaskan');
+
+
+// Transaksi Penjualan
+
+Route::get('/penjualan/tambah', [KasirPenjualanController::class, 'index'])
+    ->name('penjualan.tambah');
+Route::post('/penjualan/add-cart', [KasirPenjualanController::class, 'addCart'])
+    ->name('penjualan.addCart');
+Route::get('/penjualan/bayar', [KasirPenjualanController::class, 'bayar'])
+    ->name('penjualan.bayar');
+Route::post('/penjualan/store', [KasirPenjualanController::class, 'store'])
+    ->name('penjualan.store');
+
+Route::get('/penjualan', [TransaksiPenjualanController::class, 'index'])
+    ->name('penjualan.index');
+Route::post('/penjualan/add', [TransaksiPenjualanController::class, 'store'])
+    ->name('penjualan.add');
+Route::get('/penjualan/destroy/{id}', [TransaksiPenjualanController::class, 'destroy'])
+    ->name('penjualan.destroy');
+Route::get('/penjualan/{id}', [TransaksiPenjualanController::class, 'show'])
     ->name('penjualan.show');
-
-        // merek
-    Route::get('/merek', [MerekBarangController::class, 'index'])->name('merek');
-    Route::post('/merek/add', [MerekBarangController::class, 'store'])->name('merek.add'); 
-    Route::post('/merek/update/{id}', [MerekBarangController::class, 'update'])->name('merek.update'); 
-    Route::get('/merek/destroy/{id}', [MerekBarangController::class, 'destroy'])->name('merek.destroy');
-
-    // supplier
-    Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier');
-    Route::post('/supplier/add', [SupplierController::class, 'store'])->name('supplier.add');
-    Route::post('/supplier/update/{id}', [SupplierController::class, 'update'])->name('supplier.update');
-    Route::get('/supplier/destroy/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
-
-    // Barang
-    Route::get('/barang', [barangController::class,'index'])->name('barang');
-    Route::post('/barang/add', [barangController::class,'store'])->name('barang.add');
-    Route::post('/barang/update/{id}', [barangController::class,'update'])->name('barang.update');
-    Route::get('/barang/destroy/{id}', [barangController::class,'destroy'])->name('barang.destroy');
-    Route::get('/barang/show/{id}', [barangController::class, 'show'])->name('barang.show');
-    Route::post('/barang/import', [barangController::class, 'import'])->name('barang.import');
-    Route::get('/barang/{id}/barcode', [BarangController::class,'barcode'])->name('barang.barcode');
-
-    // kategori
-    Route::get('/kategori', [KategoriBarangController::class,'index'])->name('kategori');
-    Route::post('/kategori/add', [KategoriBarangController::class,'store'])->name('kategori.add');
-    Route::post('/kategori/update/{id}', [KategoriBarangController::class,'update'])->name('kategori.update');
-    Route::get('/kategori/destroy/{id}', [KategoriBarangController::class,'destroy'])->name('kategori.destroy');
-
-    // Stok
-    Route::get('/stok/barang', [StokBarangController::class, 'index'])->name('stok.barang');
-    Route::get('/stok/masuk', [StokMasukController::class, 'index'])->name('stok.masuk');
-    Route::get('/stok/keluar', [StokKeluarController::class, 'index'])->name('stok.keluar');
-
-    // Laporan
-    Route::get('/laporan/pembelian', [LaporanPembelianController::class,'index'])->name('laporan.pembelian');
-    Route::get('/laporan/pembelian/pdf', [LaporanPembelianController::class, 'exportPdf'])->name('laporan.pembelian.pdf');
-    Route::get('/laporan/pembelian/excel', [LaporanPembelianController::class, 'exportExcel'])->name('laporan.pembelian.excel');
     
-    Route::get('/laporan/penjualan', [LaporanPenjualanController::class,'index'])->name('laporan.penjualan');
-    Route::get('/laporan/penjualan/pdf', [LaporanPenjualanController::class,'exportPdf'])->name('laporan.penjualan.pdf');
-    Route::get('/laporan/penjualan/excel', [LaporanPenjualanController::class,'exportExcel'])->name('laporan.penjualan.excel');
+Route::post('/penjualan/pembayaran/{id}', [TransaksiPenjualanController::class, 'tambahBayar'])
+    ->name('penjualan.pembayaran.add');
+Route::post('/penjualan/pembayaran/{id}/{id_bayar}', [TransaksiPenjualanController::class, 'editBayar'])
+    ->name('penjualan.pembayaran.update');
+
+// merek
+Route::get('/merek', [MerekBarangController::class, 'index'])->name('merek');
+Route::post('/merek/add', [MerekBarangController::class, 'store'])->name('merek.add');
+Route::post('/merek/update/{id}', [MerekBarangController::class, 'update'])->name('merek.update');
+Route::get('/merek/destroy/{id}', [MerekBarangController::class, 'destroy'])->name('merek.destroy');
+
+// supplier
+Route::get('/supplier', [SupplierController::class, 'index'])->name('supplier');
+Route::post('/supplier/add', [SupplierController::class, 'store'])->name('supplier.add');
+Route::post('/supplier/update/{id}', [SupplierController::class, 'update'])->name('supplier.update');
+Route::get('/supplier/destroy/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
+
+// Barang
+Route::get('/barang', [barangController::class, 'index'])->name('barang');
+Route::post('/barang/add', [barangController::class, 'store'])->name('barang.add');
+Route::post('/barang/update/{id}', [barangController::class, 'update'])->name('barang.update');
+Route::get('/barang/destroy/{id}', [barangController::class, 'destroy'])->name('barang.destroy');
+Route::get('/barang/show/{id}', [barangController::class, 'show'])->name('barang.show');
+Route::post('/barang/import', [barangController::class, 'import'])->name('barang.import');
+Route::get('/barang/{id}/barcode', [BarangController::class, 'barcode'])->name('barang.barcode');
+
+// kategori
+Route::get('/kategori', [KategoriBarangController::class, 'index'])->name('kategori');
+Route::post('/kategori/add', [KategoriBarangController::class, 'store'])->name('kategori.add');
+Route::post('/kategori/update/{id}', [KategoriBarangController::class, 'update'])->name('kategori.update');
+Route::get('/kategori/destroy/{id}', [KategoriBarangController::class, 'destroy'])->name('kategori.destroy');
+
+// Stok
+Route::get('/stok/barang', [StokBarangController::class, 'index'])->name('stok.barang');
+Route::get('/stok/masuk', [StokMasukController::class, 'index'])->name('stok.masuk');
+Route::get('/stok/keluar', [StokKeluarController::class, 'index'])->name('stok.keluar');
+
+// Laporan
+Route::get('/laporan/pembelian', [LaporanPembelianController::class, 'index'])->name('laporan.pembelian');
+Route::get('/laporan/pembelian/pdf', [LaporanPembelianController::class, 'exportPdf'])->name('laporan.pembelian.pdf');
+Route::get('/laporan/pembelian/excel', [LaporanPembelianController::class, 'exportExcel'])->name('laporan.pembelian.excel');
+
+Route::get('/laporan/penjualan', [LaporanPenjualanController::class, 'index'])->name('laporan.penjualan');
+Route::get('/laporan/penjualan/pdf', [LaporanPenjualanController::class, 'exportPdf'])->name('laporan.penjualan.pdf');
+Route::get('/laporan/penjualan/excel', [LaporanPenjualanController::class, 'exportExcel'])->name('laporan.penjualan.excel');
 
 //     // Manajemen User Admin
 //     Route::get('/user/admin', [ManajemenUserController::class,'admin'])->name('user.admin');
@@ -132,16 +145,7 @@ use Illuminate\Support\Facades\Route;
 //     ->name('profile.foto');
 
 
-//     Route::get('/penjualan',[KasirPenjualanController::class,'index'])
-//     ->name('penjualan');
-//     Route::post('/penjualan/add-cart',[KasirPenjualanController::class, 'addCart'])
-//     ->name('penjualan.addCart');
-//     Route::get('/penjualan/bayar',[KasirPenjualanController::class, 'bayar'])
-//     ->name('penjualan.bayar');
-//     Route::post('/penjualan/store',[KasirPenjualanController::class, 'store'])
-//     ->name('penjualan.store');
-//     Route::get('/laporan',[KasirLaporanController::class,'index'])
-//         ->name('laporan'); 
+
 // });
 
 // Route::prefix('gudang')->middleware('auth:gudang')->name('gudang.')->group(function () {
@@ -155,5 +159,3 @@ use Illuminate\Support\Facades\Route;
 
     
 // });
-
-

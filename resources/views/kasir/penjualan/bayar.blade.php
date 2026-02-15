@@ -14,7 +14,7 @@
         </span>
     </div>
 
-    <form action="{{ route('kasir.penjualan.store') }}" method="POST">
+    <form action="{{ route('penjualan.store') }}" method="POST">
         @csrf
 
         <input type="hidden" name="no_transaksi" value="{{ $nota }}">
@@ -28,7 +28,7 @@
                     <table class="table table-bordered table-striped text-center mb-0">
                         <thead class="thead-light">
                             <tr>
-                                <th>No</th>
+                                <th>Noo</th>
                                 <th>Nama Barang</th>
                                 <th>Qty</th>
                                 <th>Harga</th>
@@ -82,6 +82,11 @@
                 <div class="col-lg-3 border-left bg-light p-3">
 
                     <div class="form-group">
+                        <label>Kustomer</label>
+                        <input type="text" name="kustomer" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
                         <label>Sub Total</label>
                         <input type="text" id="subTotal"
                                class="form-control text-right"
@@ -108,31 +113,29 @@
                                readonly>
                     </div>
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label>Jumlah Bayar</label>
                         <input type="number"
                                name="jumlah_bayar"
                                id="jumlahBayar"
                                class="form-control text-right"
                                required>
-                    </div>
+                    </div> --}}
 
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label>Kembali</label>
                         <input type="text"
                                name="kembalian"
                                id="kembalian"
                                class="form-control text-right"
                                readonly>
-                    </div>
+                    </div> --}}
 
                     <div class="form-group">
                         <label>Metode Bayar</label>
                         <select name="metode_bayar" class="form-control" required>
                             <option value="Cash">Cash</option>
-                            <option value="QRIS">QRIS</option>
-                            <option value="Debit">Debit</option>
-                            <option value="Transfer">Transfer</option>
+                          
                         </select>
                     </div>
 
@@ -147,7 +150,7 @@
                     <input type="hidden" name="total_qty" value="{{ $total_qty }}">
 
                     <div class="d-flex justify-content-between mt-4">
-                        <a href="{{ route('kasir.penjualan') }}" class="btn btn-danger btn-sm">
+                        <a href="{{ route('penjualan.tambah') }}" class="btn btn-danger btn-sm">
                             <i class="fas fa-arrow-left"></i> Kembali
                         </a>
                         <button type="submit" class="btn btn-success btn-sm">

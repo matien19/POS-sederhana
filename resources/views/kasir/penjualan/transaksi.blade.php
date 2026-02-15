@@ -112,7 +112,7 @@
         </table>
 
         {{-- BAYAR --}}
-        <a href="{{ route('kasir.penjualan.bayar') }}"
+        <a href="{{ route('penjualan.bayar') }}"
             class="btn btn-primary">
                 BAYAR
             </a>
@@ -170,7 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const qty   = parseInt(qtyInput.value);
         const total = harga * qty;
 
-        fetch("{{ route('kasir.penjualan.addCart') }}", {
+        fetch("{{ route('penjualan.addCart') }}", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

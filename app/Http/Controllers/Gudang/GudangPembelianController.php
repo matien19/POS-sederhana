@@ -65,6 +65,8 @@ class GudangPembelianController extends Controller
                 $lastNo = $last ? (int)substr($last->no_transaksi, -4) : 0;
                 $noUrut = $lastNo + 1;
                 $fixedNoTransaksi = 'PB-' . str_pad($noUrut, 4, '0', STR_PAD_LEFT);
+                $totalBayar = $request->grand_total;
+                $diskon = $request->diskon;
 
                 // 3. Simpan HEADER Transaksi
                 $transaksiBaru = KTTransaksiModel::create([
@@ -74,13 +76,12 @@ class GudangPembelianController extends Controller
                     'jenis_transaksi' => 'pembelian',
                     'metode_bayar'    => 'cash', // Default cash
                     'total_qty'       => 0,      // Nanti diupdate
-                    'total_bayar'     => 0,      // Nanti diupdate
+                    'total_bayar'     => $totalBayar,      // Nanti diupdate
                     'jumlah_bayar'    => 0,
-                    'diskon'          => 0,
+                    'diskon'          => $diskon,
                 ]);
 
                 $totalQty   = 0;
-                $totalBayar = 0;
 
                 // 4. Simpan DETAIL Barang & Update Stok
                 foreach ($request->barang as $item) {
@@ -102,19 +103,18 @@ class GudangPembelianController extends Controller
                         ->increment('stok', $qty);
 
                     $totalQty   += $qty;
-                    $totalBayar += $subtotal;
                 }
 
                 // 5. Update Header dengan Total Akhir
                 $transaksiBaru->update([
                     'total_qty'    => $totalQty,
-                    'total_bayar'  => $totalBayar,
-                    'jumlah_bayar' => $totalBayar, // Asumsi lunas
+                    // 'total_bayar'  => $totalBayar,
+                    // 'jumlah_bayar' => $totalBayar, // Asumsi lunas
                 ]);
             });
 
             return redirect()
-                ->route('pembelian.tambah') // Pastikan route ini mengarah kembali ke index pembelian
+                ->route('pembelian') 
                 ->with('success', 'Transaksi berhasil disimpan!');
 
         } catch (\Exception $e) {

@@ -5,8 +5,8 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-            <i class="fas fa-file-invoice"></i> Transaksi Pembelian
-        </h3>
+                <i class="fas fa-file-invoice"></i> Transaksi Pembelian
+            </h3>
         </div>
         <div class="card-body">
             <form action="{{ route('pembelian.store') }}" method="POST">
@@ -19,25 +19,23 @@
                 <div class="row mb-3">
                     <div class="col-md-3">
                         <label>No. Pembelian</label>
-                        <input type="text" class="form-control"
-                               value="{{ $transaksi->no_transaksi }}" readonly>
+                        <input type="text" class="form-control" value="{{ $transaksi->no_transaksi }}" readonly>
                     </div>
 
                     <div class="col-md-3">
                         <label>Petugas</label>
-                        <input type="text" class="form-control"
-                               value="-" readonly>
+                        <input type="text" class="form-control" value="-" readonly>
                     </div>
 
                     <div class="col-md-3">
                         <label>Tanggal</label>
-                        <input type="text" class="form-control"
-                               value="{{ $tanggal->format('d-m-Y') }}" readonly>
+                        <input type="text" class="form-control" value="{{ $tanggal->format('d-m-Y') }}" readonly>
                     </div>
 
                     <div class="col-md-3 text-end">
                         <label>Total</label>
                         <h4 id="grandTotal"><strong>Rp 0,-</strong></h4>
+                        <input type="hidden" name="grand_total" id="inputGrandTotal" value="0">
                     </div>
                 </div>
 
@@ -47,13 +45,11 @@
                     <select id="barang" class="form-control">
                         <option value="">-- Pilih Barang --</option>
                         @foreach ($barang as $item)
-                            <option value="{{ $item->id }}"
-                                data-kode="{{ $item->kode_barang }}"
-                                data-nama="{{ $item->nama_barang }}"
-                                data-stok="{{ $item->stok }}"
-                                data-harga="{{ $item->harga_beli }}">
-                                {{ $item->kode_barang }} - {{ $item->nama_barang }}
-                            </option>
+                        <option value="{{ $item->id }}" data-kode="{{ $item->kode_barang }}"
+                            data-nama="{{ $item->nama_barang }}" data-stok="{{ $item->stok }}"
+                            data-harga="{{ $item->harga_beli }}">
+                            {{ $item->kode_barang }} - {{ $item->nama_barang }}
+                        </option>
                         @endforeach
                     </select>
                 </div>
@@ -96,7 +92,7 @@
                     <select name="id_supplier" class="form-control" required>
                         <option value="">-- Pilih Supplier --</option>
                         @foreach ($supplier as $item)
-                            <option value="{{ $item->id }}">{{ $item->nama }}</option>
+                        <option value="{{ $item->id }}">{{ $item->nama }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -125,6 +121,13 @@
 
                 {{-- HIDDEN BARANG --}}
                 <div id="inputHidden"></div>
+                {{-- DISKON --}}
+                <div class="row mb-3">
+                    <div class="col-md-4 offset-md-8">
+                        <label>Diskon (Rp)</label>
+                        <input type="number" id="diskon" class="form-control" value="0" min="0" name="diskon">
+                    </div>
+                </div>
 
                 <div class="text-end mt-3">
                     <button type="submit" class="btn btn-primary px-5">
@@ -140,17 +143,37 @@
 
 @push('scripts')
 <script>
-let no = 1;
-let grandTotal = 0;
+    function updateGrandTotal() {
+        let diskon = parseInt(diskonInput.value) || 0;
 
-const stok = document.getElementById('stok');
-const harga = document.getElementById('harga');
-const jumlah_beli = document.getElementById('jumlah_beli');
-const total_bayar = document.getElementById('total_bayar');
-const listBarang = document.getElementById('listBarang');
-const inputHidden = document.getElementById('inputHidden');
-const nama_barang_box = document.getElementById('nama_barang_box');
-const grandTotalEl = document.getElementById('grandTotal');
+        if (diskon > grandTotal) {
+            diskon = grandTotal;
+            diskonInput.value = grandTotal;
+        }
+
+        let totalAkhir = grandTotal - diskon;
+
+        grandTotalEl.innerHTML =
+            '<strong>Rp ' + totalAkhir.toLocaleString('id-ID') + '</strong>';
+
+        inputGrandTotal.value = totalAkhir; 
+    }
+            
+</script>
+<script>
+    let no = 1;
+    let grandTotal = 0;
+
+    const stok = document.getElementById('stok');
+    const harga = document.getElementById('harga');
+    const jumlah_beli = document.getElementById('jumlah_beli');
+    const total_bayar = document.getElementById('total_bayar');
+    const listBarang = document.getElementById('listBarang');
+    const inputHidden = document.getElementById('inputHidden');
+    const nama_barang_box = document.getElementById('nama_barang_box');
+    const grandTotalEl = document.getElementById('grandTotal');
+    const diskonInput = document.getElementById('diskon');
+    const inputGrandTotal = document.getElementById('inputGrandTotal');
 
 /* pilih barang */
 document.getElementById('barang').addEventListener('change', function () {
@@ -163,6 +186,7 @@ document.getElementById('barang').addEventListener('change', function () {
     jumlah_beli.value = '';
     total_bayar.value = '';
 });
+diskonInput.addEventListener('input', updateGrandTotal);
 
 /* hitung total pembayaran */
 jumlah_beli.addEventListener('input', function () {
@@ -210,7 +234,8 @@ document.getElementById('btnTambah').addEventListener('click', function () {
     `);
 
     grandTotal += subtotal;
-    grandTotalEl.innerHTML = '<strong>Rp ' + grandTotal.toLocaleString('id-ID') + '</strong>';
+    updateGrandTotal();
+
 
     no++;
     jumlah_beli.value = '';
@@ -221,7 +246,8 @@ document.getElementById('btnTambah').addEventListener('click', function () {
 function hapus(id, subtotal) {
     document.getElementById('row-' + id).remove();
     grandTotal -= subtotal;
-    grandTotalEl.innerHTML = '<strong>Rp ' + grandTotal.toLocaleString('id-ID') + '</strong>';
+    updateGrandTotal();
+
 }
 </script>
 @endpush
