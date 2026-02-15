@@ -99,6 +99,11 @@ Route::get('/laporan/penjualan', [LaporanPenjualanController::class, 'index'])->
 Route::get('/laporan/penjualan/pdf', [LaporanPenjualanController::class, 'exportPdf'])->name('laporan.penjualan.pdf');
 Route::get('/laporan/penjualan/excel', [LaporanPenjualanController::class, 'exportExcel'])->name('laporan.penjualan.excel');
 
+//retur
+Route::get('/retur', [barangController::class, 'index'])->name('barang');
+
+
+
 //     // Manajemen User Admin
 //     Route::get('/user/admin', [ManajemenUserController::class,'admin'])->name('user.admin');
 //     Route::post('/user/admin/add', [ManajemenUserController::class,'storeAdmin'])->name('user.admin.add');

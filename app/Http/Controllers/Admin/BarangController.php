@@ -159,14 +159,14 @@ class BarangController extends Controller
         }
     }
 
-    public function import(Request $request)
-    {
-        $request->validate([
-            'file_barang'=> 'required|file|mimes:xls,xlsx|max:5120',
-        ]);
-        Excel::import(new MDBarangImport,$request->file('file_barang'));
-        return redirect()->back()->with('success','berhasil import');
-    }
+    // public function import(Request $request)
+    // {
+    //     $request->validate([
+    //         'file_barang'=> 'required|file|mimes:xls,xlsx|max:5120',
+    //     ]);
+    //     Excel::import(new MDBarangImport,$request->file('file_barang'));
+    //     return redirect()->back()->with('success','berhasil import');
+    // }
 
     public function barcode($id)
     {

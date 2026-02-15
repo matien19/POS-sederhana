@@ -20,7 +20,7 @@ class TransaksiPenjualanController extends Controller
     // =========================
     public function index()
     {
-        $transaksi = KTTransaksiModel::with(['kasir', 'penjualan.barang','pembayaran'])->get();
+        $transaksi = KTTransaksiModel::with(['kasir', 'penjualan.barang','pembayaran'])->withSum('pembayaran', 'jumlah_bayar')->get();
         return view('admin.transaksipenjualan', compact('transaksi'));
     }
 
