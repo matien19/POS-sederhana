@@ -65,8 +65,11 @@
             </form>
 
             <hr>
-
-            <table class="table table-bordered table-striped mt-3">
+            <a href="{{ route('laporan.penjualan.pdf', request()->query()) }}" target="_blank"
+                class="btn btn-danger btn-sm mr-2">
+                <i class="fas fa-file-pdf"></i> Export PDF
+            </a>
+            <table class="table table-bordered table-striped mt-3" id="example1">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -109,10 +112,7 @@
             </table>
 
             <div class="text-right mt-3">
-                <a href="{{ route('laporan.penjualan.pdf', request()->query()) }}" target="_blank"
-                    class="btn btn-danger btn-sm mr-2">
-                    <i class="fas fa-file-pdf"></i> Export PDF
-                </a>
+
 
                 {{-- <a href="{{ route('laporan.penjualan.excel', request()->query()) }}"
                     class="btn btn-success btn-sm">
