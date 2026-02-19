@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <style>
@@ -53,6 +54,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- HEADER -->
@@ -63,17 +65,9 @@
     <table class="info">
         <tr>
             <td width="15%">Tanggal</td>
-            <td width="35%">
+            <td width="">
                 {{ $request->tanggal_awal ?? '-' }} s/d {{ $request->tanggal_akhir ?? '-' }}
             </td>
-            <td width="15%">Kasir</td>
-            <td width="35%">{{ $namaKasir }}</td>
-        </tr>
-        <tr>
-            <td>Metode Bayar</td>
-            <td>{{ $metodePembayaran }}</td>
-            <td></td>
-            <td></td>
         </tr>
     </table>
 
@@ -84,40 +78,62 @@
                 <th width="5%">No</th>
                 <th width="15%">Nota</th>
                 <th width="15%">Tanggal</th>
-                <th width="20%">Kasir</th>
-                <th width="15%">Metode Bayar</th>
+                <th width="15%">Kustomer</th>
                 <th width="15%">Total Bayar</th>
+                <th width="15%">Dibayar</th>
+                <th width="15%">Hutang</th>
             </tr>
         </thead>
         <tbody>
             @php
-                $no = 1;
-                $grandTotal = 0;
+            $no = 1;
+            $grandTotal = 0;
+            $totalBayar = 0;
+            $totalHutang = 0;
             @endphp
 
             @foreach($data as $row)
-                @php $grandTotal += $row->total_bayar; @endphp
-                <tr>
-                    <td class="center">{{ $no++ }}</td>
-                    <td>{{ $row->no_transaksi }}</td>
-                    <td class="center">{{ date('d-m-Y', strtotime($row->tanggal)) }}</td>
-                    <td>{{ optional($row->kasir)->name }}</td>
-                    <td class="center">{{ $row->metode_bayar }}</td>
-                    <td class="right">
-                        Rp {{ number_format($row->total_bayar,0,',','.') }}
-                    </td>
-                </tr>
+            @php
+            $grandTotal += $row->total_bayar;
+            $totalBayar += $row->pembayaran_sum_jumlah_bayar;
+            $hutang = $row->total_bayar - ($row->pembayaran_sum_jumlah_bayar);
+            $totalHutang += $hutang;
+
+            @endphp
+            <tr>
+                <td class="center">{{ $no++ }}</td>
+                <td>{{ $row->no_transaksi }}</td>
+                <td class="center">{{ date('d-m-Y', strtotime($row->tanggal)) }}</td>
+                <td>{{ $row->customer ??'-' }}</td>
+                <td class="right">
+                    Rp {{ number_format($row->total_bayar,0,',','.') }}
+                </td>
+                <td>
+                    Rp {{ number_format($row->pembayaran_sum_jumlah_bayar ?? 0,0,',','.') }}
+                </td>
+
+                <td>
+                    Rp {{ number_format($hutang ?? 0, 0,',','.') }}
+                </td>
+            </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <th colspan="5" class="right">GRAND TOTAL</th>
+                <th colspan="4" class="right">GRAND TOTAL</th>
                 <th class="right">
                     Rp {{ number_format($grandTotal,0,',','.') }}
+                </th>
+                <th class="right">
+                    Rp {{ number_format($totalBayar,0,',','.') }}
+                </th>
+                <th class="right">
+                    Rp {{ number_format($totalHutang,0,',','.') }}
                 </th>
             </tr>
         </tfoot>
     </table>
 
 </body>
+
 </html>

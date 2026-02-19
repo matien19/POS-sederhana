@@ -17,7 +17,7 @@ class LaporanPenjualanController extends Controller
         // $petugas = User::where('posisi','kasir')->get();
 
         $query = KTTransaksiModel::with('kasir')
-            ->where('jenis_transaksi','penjualan');
+            ->where('jenis_transaksi','penjualan', 'pembayaran')->withSum('pembayaran', 'jumlah_bayar');
 
         // Filter tanggal
         if ($request->filled('tanggal_awal') && $request->filled('tanggal_akhir')) {
@@ -37,7 +37,7 @@ class LaporanPenjualanController extends Controller
 
         $data = $query->orderBy('tanggal','desc')->get();
 
-        return view('admin.laporanpenjualan', compact('data'));
+        return view('admin.laporanPenjualan', compact('data'));
     }
 
     /**
@@ -46,7 +46,7 @@ class LaporanPenjualanController extends Controller
     public function exportPdf(Request $request)
     {
         $query = KTTransaksiModel::with('kasir')
-            ->where('jenis_transaksi','penjualan');
+            ->where('jenis_transaksi','penjualan', 'pembayaran')->withSum('pembayaran', 'jumlah_bayar');
 
         if ($request->filled('tanggal_awal') && $request->filled('tanggal_akhir')) {
             $query->whereDate('tanggal','>=',$request->tanggal_awal)
@@ -92,11 +92,11 @@ class LaporanPenjualanController extends Controller
     /**
      * EXPORT EXCEL
      */
-    public function exportExcel(Request $request)
-    {
-        return Excel::download(
-            new LaporanPenjualanExport($request),
-            'Laporan_Penjualan.xlsx'
-        );
-    }
+    // public function exportExcel(Request $request)
+    // {
+    //     return Excel::download(
+    //         new LaporanPenjualanExport($request),
+    //         'Laporan_Penjualan.xlsx'
+    //     );
+    // }
 }

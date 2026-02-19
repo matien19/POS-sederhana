@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <style>
@@ -59,6 +60,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <!-- HEADER -->
@@ -68,18 +70,10 @@
     <!-- INFO -->
     <table class="info">
         <tr>
-            <td width="15%">Tanggal</td>
-            <td width="35%">
+            <td width="10%">Tanggal</td>
+            <td width="">
                 {{ $request->tanggal_awal ?? '-' }} s/d {{ $request->tanggal_akhir ?? '-' }}
             </td>
-            <td width="15%">Supplier</td>
-            <td width="35%">{{ $namaSupplier }}</td>
-        </tr>
-        <tr>
-            <td>Petugas</td>
-            <td>{{ $namaPetugas }}</td>
-            <td></td>
-            <td></td>
         </tr>
     </table>
 
@@ -91,30 +85,29 @@
                 <th width="15%">No Transaksi</th>
                 <th width="15%">Tanggal</th>
                 <th width="20%">Supplier</th>
-                <th width="15%">Petugas</th>
                 <th width="15%">Total Bayar</th>
             </tr>
         </thead>
         <tbody>
             @php $no = 1; $grandTotal = 0; @endphp
             @foreach($data as $row)
-                @php $grandTotal += $row->total_bayar; @endphp
-                <tr>
-                    <td class="center">{{ $no++ }}</td>
-                    <td>{{ $row->no_transaksi }}</td>
-                    <td class="center">{{ date('d-m-Y', strtotime($row->tanggal)) }}</td>
-                    <td>{{ optional($row->supplier)->nama }}</td>
-                    <td>{{ optional($row->petugas)->name }}</td>
-                    <td class="right">Rp {{ number_format($row->total_bayar,0,',','.') }}</td>
-                </tr>
+            @php $grandTotal += $row->total_bayar; @endphp
+            <tr>
+                <td class="center">{{ $no++ }}</td>
+                <td>{{ $row->no_transaksi }}</td>
+                <td class="center">{{ date('d-m-Y', strtotime($row->tanggal)) }}</td>
+                <td>{{ optional($row->supplier)->nama }}</td>
+                <td class="right">Rp {{ number_format($row->total_bayar,0,',','.') }}</td>
+            </tr>
             @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <th colspan="5" class="right">GRAND TOTAL</th>
+                <th colspan="4" class="right">GRAND TOTAL</th>
                 <th class="right">Rp {{ number_format($grandTotal,0,',','.') }}</th>
             </tr>
         </tfoot>
     </table>
 </body>
+
 </html>
