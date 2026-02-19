@@ -68,9 +68,13 @@
             </form>
 
             <hr>
+            <a href="{{ route('laporan.pembelian.pdf', request()->query()) }}" target="_blank"
+                class="btn btn-danger btn-sm mr-2">
+                <i class="fas fa-file-pdf"></i> Export PDF
+            </a>
 
 
-            <table class="table table-bordered table-striped">
+            <table class="table table-bordered table-striped" id="example1">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -101,10 +105,6 @@
                 </tbody>
             </table>
             <div class="text-right mt-3">
-                <a href="{{ route('laporan.pembelian.pdf', request()->query()) }}" target="_blank"
-                    class="btn btn-danger btn-sm mr-2">
-                    <i class="fas fa-file-pdf"></i> Export PDF
-                </a>
 
                 {{-- <a href="{{ route('laporan.pembelian.excel', request()->query()) }}"
                     class="btn btn-success btn-sm">
