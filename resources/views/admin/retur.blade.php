@@ -15,13 +15,23 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                      
-                        <th>
-                            <center>Aksi</center>
-                        </th>
+                        <th>Tanggal</th>
+                        <th>Kustomer</th>
+                        <th>Barang</th>
+                        <th>Jumlah Retur</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach($data as $item)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $item->tanggal }}</td>
+                        <td>{{ $item->customer ?? '-' }}</td>
+                        <td>{{ $item->barang->nama_barang ?? '-' }}</td>
+                        <td>{{ $item->qty ?? '-' }}</td>
+                    </tr>
+                    @endforeach
+                </tbody>
 
             </table>
         </div>
@@ -37,8 +47,32 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="{{ route('barang.add') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('retur.add') }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Kustomer</label>
+                        <input type="text" name="kustomer" id="kustomer" class="form-control" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Barang</label>
+                        <select name="barang_id" class="form-control" required>
+                            <option value="">-- Pilih Barang --</option>
+                            @foreach($barang as $b)
+                            <option value="{{ $b->id }}">
+                                {{ $b->nama_barang }} (Stok: {{ $b->stok }})
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Jumlah Retur</label>
+                        <input type="number" name="jumlah_retur" class="form-control" min="1" required>
+                    </div>
+                </div>
+
                 <div class="modal-footer justify-content-end">
                     <button type="submit" name="btn_tambah" class="btn btn-primary">Simpan</button>
                 </div>
@@ -50,36 +84,9 @@
 </div>
 <!-- /.modal -->
 
-<div class="modal fade" id="modal-edit">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title"><i class="fas fa-box mr-1"></i>
-                    Edit Data Barang</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="" method="POST" id="form-edit" enctype="multipart/form-data">
-                @csrf
-                <div class="modal-footer justify-content-end">
-                    <button type="submit" name="btn_edit" class="btn btn-primary">Simpan</button>
-                </div>
-            </form>
-        </div>
-        <!-- /.modal-content -->
-    </div>
-    <!-- /.modal-dialog -->
-</div>
-<!-- /.modal -->
-
-
 @endsection
 @push('scripts')
-
 <script type="text/javascript">
-    $('#modal-edit').on('show.bs.modal', function(e){
-   
-  })
+
 </script>
 @endpush

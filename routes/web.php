@@ -14,7 +14,7 @@ use App\Http\Controllers\Admin\LaporanPembelianController;
 use App\Http\Controllers\Admin\LaporanPenjualanController;
 use App\Http\Controllers\Gudang\GudangPembelianController;
 use App\Http\Controllers\Kasir\KasirPenjualanController;
-
+use App\Http\Controllers\ReturController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AdminDashController::class, 'index'])->name('dashboard');
@@ -100,7 +100,8 @@ Route::get('/laporan/penjualan/pdf', [LaporanPenjualanController::class, 'export
 Route::get('/laporan/penjualan/excel', [LaporanPenjualanController::class, 'exportExcel'])->name('laporan.penjualan.excel');
 
 //retur
-Route::get('/retur', [BarangController::class, 'index'])->name('retur');
+Route::get('/retur', [ReturController::class, 'index'])->name('retur');
+Route::post('/barang/add', [ReturController::class, 'store'])->name('retur.add');
 
 
 

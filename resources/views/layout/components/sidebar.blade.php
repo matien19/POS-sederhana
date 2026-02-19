@@ -76,7 +76,7 @@
                 <li class="nav-item">
                     <a href="{{ route('retur') }}"
                         class="nav-link {{ request()->routeIs('retur') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-undo"></i>
                         <p>Retur</p>
                     </a>
                 </li>
