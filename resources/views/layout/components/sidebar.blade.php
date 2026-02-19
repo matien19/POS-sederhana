@@ -74,10 +74,10 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('dashboard') }}"
-                        class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                    <a href="{{ route('retur') }}"
+                        class="nav-link {{ request()->routeIs('retur') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Dashboard</p>
+                        <p>Retur</p>
                     </a>
                 </li>
 

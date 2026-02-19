@@ -32,7 +32,7 @@ public function index()
 
     return view('admin.dashboard', [
         'totalBarang'      => $barang->count(),
-        'stokHabis'        => $barang->where('stok_real', '<=', 0)->count(),
+        'stokHabis'        => $barang->where('stok', '<=', 0)->count(),
         'totalPembelian'   => KTTransaksiModel::where('jenis_transaksi', 'pembelian')->sum('total_bayar'),
         'totalPenjualan'   => KTTransaksiModel::where('jenis_transaksi', 'penjualan')->sum('total_bayar'),
         'transaksiTerbaru' => KTTransaksiModel::latest()->take(5)->get(),
