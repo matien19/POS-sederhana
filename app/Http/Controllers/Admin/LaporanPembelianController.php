@@ -36,7 +36,7 @@ class LaporanPembelianController extends Controller
 
         $data = $query->orderBy('tanggal', 'desc')->get();
 
-        return view('admin.laporanPembelian', compact('supplier', 'data'));
+        return view('admin.laporan_pembelian_index', compact('supplier', 'data'));
     }
 
     public function exportPdf(Request $request)

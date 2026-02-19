@@ -37,7 +37,7 @@ class LaporanPenjualanController extends Controller
 
         $data = $query->orderBy('tanggal','desc')->get();
 
-        return view('admin.laporanPenjualan', compact('data'));
+        return view('admin.laporan_penjualan_index', compact('data'));
     }
 
     /**
