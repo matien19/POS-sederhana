@@ -65,7 +65,7 @@ class LaporanPembelianController extends Controller
 
         $data = $query->orderBy('tanggal', 'desc')->get();
 
-        $html = view('admin.laporan_pembelian', compact(
+        $html = view('admin.laporan_pembelian_pdf', compact(
             'data',
             'request',
             'namaSupplier',

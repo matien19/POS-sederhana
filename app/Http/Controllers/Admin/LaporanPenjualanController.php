@@ -69,7 +69,7 @@ class LaporanPenjualanController extends Controller
 
         $data = $query->orderBy('tanggal','desc')->get();
 
-        $html = view('admin.laporan_penjualan', compact(
+        $html = view('admin.laporan_penjualan_pdf', compact(
             'data',
             'request',
             'namaKasir',
