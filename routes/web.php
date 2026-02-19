@@ -71,12 +71,12 @@ Route::post('/supplier/update/{id}', [SupplierController::class, 'update'])->nam
 Route::get('/supplier/destroy/{id}', [SupplierController::class, 'destroy'])->name('supplier.destroy');
 
 // Barang
-Route::get('/barang', [barangController::class, 'index'])->name('barang');
-Route::post('/barang/add', [barangController::class, 'store'])->name('barang.add');
-Route::post('/barang/update/{id}', [barangController::class, 'update'])->name('barang.update');
-Route::get('/barang/destroy/{id}', [barangController::class, 'destroy'])->name('barang.destroy');
-Route::get('/barang/show/{id}', [barangController::class, 'show'])->name('barang.show');
-Route::post('/barang/import', [barangController::class, 'import'])->name('barang.import');
+Route::get('/barang', [BarangController::class, 'index'])->name('barang');
+Route::post('/barang/add', [BarangController::class, 'store'])->name('barang.add');
+Route::post('/barang/update/{id}', [BarangController::class, 'update'])->name('barang.update');
+Route::get('/barang/destroy/{id}', [BarangController::class, 'destroy'])->name('barang.destroy');
+Route::get('/barang/show/{id}', [BarangController::class, 'show'])->name('barang.show');
+Route::post('/barang/import', [BarangController::class, 'import'])->name('barang.import');
 Route::get('/barang/{id}/barcode', [BarangController::class, 'barcode'])->name('barang.barcode');
 
 // kategori
@@ -100,7 +100,7 @@ Route::get('/laporan/penjualan/pdf', [LaporanPenjualanController::class, 'export
 Route::get('/laporan/penjualan/excel', [LaporanPenjualanController::class, 'exportExcel'])->name('laporan.penjualan.excel');
 
 //retur
-Route::get('/retur', [barangController::class, 'index'])->name('barang');
+Route::get('/retur', [BarangController::class, 'index'])->name('barang');
 
 
 
