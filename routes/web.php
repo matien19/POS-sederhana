@@ -101,7 +101,7 @@ Route::get('/laporan/penjualan/excel', [LaporanPenjualanController::class, 'expo
 
 //retur
 Route::get('/retur', [ReturController::class, 'index'])->name('retur');
-Route::post('/barang/add', [ReturController::class, 'store'])->name('retur.add');
+Route::post('/retur/add', [ReturController::class, 'store'])->name('retur.add');
 
 
 
