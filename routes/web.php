@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\TransaksiPenjualanController;
 use App\Http\Controllers\Admin\TransaksiPembelianController;
 use App\Http\Controllers\Admin\MerekBarangController;
 use App\Http\Controllers\Admin\SupplierController;
-use App\Http\Controllers\Admin\barangController;
+use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\Admin\KategoriBarangController;
 use App\Http\Controllers\Admin\StokBarangController;
 use App\Http\Controllers\Admin\StokMasukController;
