@@ -57,7 +57,7 @@
 
                     <div class="form-group">
                         <label>Barang</label>
-                        <select name="barang_id" class="form-control" required>
+                        <select name="barang_id" class="form-control select2" required>
                             <option value="">-- Pilih Barang --</option>
                             @foreach($barang as $b)
                             <option value="{{ $b->id }}">
