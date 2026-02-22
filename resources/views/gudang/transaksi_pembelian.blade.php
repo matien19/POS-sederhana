@@ -42,7 +42,7 @@
                 {{-- PILIH BARANG --}}
                 <div class="mb-3">
                     <label>Masukan SKU</label>
-                    <select id="barang" class="form-control">
+                    <select id="barang" class="form-control select2" style="width: 100%;">
                         <option value="">-- Pilih Barang --</option>
                         @foreach ($barang as $item)
                         <option value="{{ $item->id }}" data-kode="{{ $item->kode_barang }}"
@@ -89,7 +89,7 @@
                 {{-- SUPPLIER (FIXED) --}}
                 <div class="mb-4">
                     <label>Supplier</label>
-                    <select name="id_supplier" class="form-control" required>
+                    <select name="id_supplier" class="form-control select2" required>
                         <option value="">-- Pilih Supplier --</option>
                         @foreach ($supplier as $item)
                         <option value="{{ $item->id }}">{{ $item->nama }}</option>

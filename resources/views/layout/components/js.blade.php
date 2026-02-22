@@ -39,6 +39,14 @@
 <script src="{{ asset('template/plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('template/plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 <!-- Page specific script -->
+<!-- DataTables -->
+<link rel="stylesheet" href="{{ asset('template/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('template/plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
+<link rel="stylesheet" href="{{ asset('template/plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
+{{-- modal --}}
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="{{ asset('template/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css') }}">
 
 <script>
     $(function() {
@@ -171,6 +179,28 @@
         }
     }
 </script>
+<!-- Select2 -->
+<script src="{{ asset('template/plugins/select2/js/select2.full.min.js') }}"></script>
 
-
-
+<!-- Bootstrap4 Duallistbox -->
+<script src="{{ asset('template/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js') }}"></script>
+<!-- InputMask -->
+<script src="{{ asset('template/plugins/moment/moment.min.js') }}"></script>
+<script src="{{ asset('template/plugins/inputmask/jquery.inputmask.min.js') }}"></script>
+<!-- bootstrap color picker -->
+<script src="{{ asset('template/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js') }}"></script>
+<!-- Bootstrap Switch -->
+<script src="{{ asset('template/plugins/bootstrap-switch/js/bootstrap-switch.min.js') }}"></script>
+<!-- BS-Stepper -->
+<script src="{{ asset('template/plugins/bs-stepper/js/bs-stepper.min.js') }}"></script>
+<!-- dropzonejs -->
+<script src="{{ asset('template/plugins/dropzone/min/dropzone.min.js') }}"></script>
+<script>
+    $(function () {
+        $('.select2').select2({
+            theme: 'bootstrap4',
+            width: '100%'
+        });
+    });
+ 
+</script>

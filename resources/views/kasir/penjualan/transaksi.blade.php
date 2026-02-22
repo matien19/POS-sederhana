@@ -40,7 +40,7 @@
         <div class="row mb-3">
             <div class="col-md-6">
                 <label>Pilih Produk</label>
-                <select class="form-control" id="pilihBarang">
+                <select class="form-control select2" id="pilihBarang">
                     <option value="">-- Pilih Produk --</option>
                     @foreach ($barang as $item)
                         <option
