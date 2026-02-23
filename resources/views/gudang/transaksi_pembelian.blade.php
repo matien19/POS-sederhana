@@ -176,16 +176,18 @@
     const inputGrandTotal = document.getElementById('inputGrandTotal');
 
 /* pilih barang */
-document.getElementById('barang').addEventListener('change', function () {
-    let opt = this.options[this.selectedIndex];
-    if (!opt.value) return;
+$('#barang').on('select2:select', function (e) {
+
+    let opt = e.params.data.element;
 
     stok.value = opt.dataset.stok;
     harga.value = opt.dataset.harga;
     nama_barang_box.innerHTML = opt.dataset.nama;
+
     jumlah_beli.value = '';
     total_bayar.value = '';
 });
+
 diskonInput.addEventListener('input', updateGrandTotal);
 
 /* hitung total pembayaran */

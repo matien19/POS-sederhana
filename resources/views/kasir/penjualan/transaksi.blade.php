@@ -43,15 +43,11 @@
                 <select class="form-control select2" id="pilihBarang">
                     <option value="">-- Pilih Produk --</option>
                     @foreach ($barang as $item)
-                        <option
-                            value="{{ $item->id }}"
-                            data-kode="{{ $item->kode_barang }}"
-                            data-nama="{{ $item->nama_barang }}"
-                            data-stok="{{ $item->stok }}"
-                            data-harga="{{ $item->harga_jual }}"
-                        >
-                            {{ $item->kode_barang }} - {{ $item->nama_barang }}
-                        </option>
+                    <option value="{{ $item->id }}" data-kode="{{ $item->kode_barang }}"
+                        data-nama="{{ $item->nama_barang }}" data-stok="{{ $item->stok }}"
+                        data-harga="{{ $item->harga_jual }}">
+                        {{ $item->kode_barang }} - {{ $item->nama_barang }}
+                    </option>
                     @endforeach
                 </select>
             </div>
@@ -112,17 +108,16 @@
         </table>
 
         {{-- BAYAR --}}
-        <a href="{{ route('penjualan.bayar') }}"
-            class="btn btn-primary">
-                BAYAR
-            </a>
+        <a href="{{ route('penjualan.bayar') }}" class="btn btn-primary">
+            BAYAR
+        </a>
 
     </div>
 </div>
 
 {{-- SCRIPT --}}
 <script>
-document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
     const token       = document.querySelector('meta[name="csrf-token"]').content;
     const pilihBarang = document.getElementById('pilihBarang');
@@ -139,14 +134,15 @@ document.addEventListener('DOMContentLoaded', function () {
     let no = 1;
     let totalAll = 0;
 
-    pilihBarang.addEventListener('change', function () {
-        const s = this.options[this.selectedIndex];
-        if (!s.value) return;
+    $('#pilihBarang').on('select2:select', function (e) {
+
+        let s = e.params.data.element;
 
         namaBarang.value = s.dataset.nama;
         stokInput.value  = s.dataset.stok;
         hargaInput.value = s.dataset.harga;
         qtyInput.value   = 1;
+
         hitung();
     });
 
@@ -203,7 +199,7 @@ document.addEventListener('DOMContentLoaded', function () {
             grandTotal.innerText = 'Rp ' + totalAll.toLocaleString();
             inputGrandTotal.value = totalAll;
 
-            pilihBarang.value = '';
+            $('#pilihBarang').val(null).trigger('change');
             namaBarang.value  = '';
             stokInput.value   = '';
             hargaInput.value  = '';
